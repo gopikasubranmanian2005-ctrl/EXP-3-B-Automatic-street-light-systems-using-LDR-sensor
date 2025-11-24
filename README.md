@@ -12,6 +12,8 @@
   
 ## Circuit Diagram:
 
+<img width="1178" height="569" alt="Screenshot 2025-09-23 142726" src="https://github.com/user-attachments/assets/044baa45-b672-4075-9569-841c3c89909e" />
+
 
 ## Theory :
 
@@ -65,11 +67,42 @@ o	The middle point (between LDR and resistor) connects to the Arduino analog inp
 •	Save the Circuit: Click "Save" to keep your circuit design and code for future use.
 
 ## Code:
+```
+const int LEDPin = 9;      // LED connected to pin 9
+const int LDRPin = A0;     // LDR connected to analog pin A0
+int LDRStatus = 0;         // To store LDR reading
 
+void setup() {
+  Serial.begin(9600);      
+  pinMode(LEDPin, OUTPUT); 
+  pinMode(LDRPin, INPUT);  
+}
+
+void loop() {
+  LDRStatus = analogRead(LDRPin);   // Read LDR value
+  
+  if (LDRStatus <= 500) {           // Threshold same as first code
+    digitalWrite(LEDPin, HIGH);     // Turn LED ON
+    Serial.print("Current Light Intensity Value is - ");
+    Serial.println(LDRStatus);
+    Serial.println("Time to shine, it's dark!");
+  } else {
+    digitalWrite(LEDPin, LOW);      // Turn LED OFF
+    Serial.print("Current Light Intensity Value is - ");
+    Serial.println(LDRStatus);
+    Serial.println("No need for light, it's bright out!");
+  }
+
+  delay(1000);  // Avoid spamming serial monitor
+}
+```
 
 
 ## Output:
- 
 
+ <img width="1171" height="556" alt="Screenshot 2025-09-23 142804" src="https://github.com/user-attachments/assets/ca1d8fba-449a-4ec2-8bb0-8811220ddfc3" />
 
 ## Result:
+
+The system successfully controlled street lights based on ambient light intensity using the LDR sensor.
+
